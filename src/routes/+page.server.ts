@@ -26,10 +26,10 @@ export const actions = {
 			const model = googleGenerativeAI.getGenerativeModel({
 				model: "gemini-1.5-flash",
 				systemInstruction:
-					"Give a casual compliment for the following github account base on their bio, name, followers, following, readme, and repo and not using any harsh word and keep it short.",
+					"You assess a GitHub account based on their bio, name, followers, following, README, and repositories in a casual manner, avoiding harsh language, and keeping it concise.",
 			});
 
-			let prompt = `Praise ${username} for their github account. mention their name, bio, followers, following, repos, and readme. Keep it short.`;
+			let prompt = `${username} has a great Github profile! Praise their github profile and mention their name, bio, followers, following, repos, and readme.`;
 
 			switch (lang) {
 				case "en":
@@ -50,7 +50,15 @@ export const actions = {
 				readme: userReadme,
 			};
 
-			prompt += JSON.stringify(data);
+			prompt += `Here the their github profile
+			Name: ${data.name}
+			Bio: ${data.bio}
+			Followers: ${data.followers}
+			Following: ${data.following}
+			Repositories:
+			${data.repos}
+			Readme:
+			${data.readme}`;
 
 			const result = await model.generateContent(prompt);
 			const response = result.response;
