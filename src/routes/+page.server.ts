@@ -26,10 +26,10 @@ export const actions = {
 			const model = googleGenerativeAI.getGenerativeModel({
 				model: "gemini-1.5-flash",
 				systemInstruction:
-					"Give a casual compliment for the following github account and not using any harsh word and keep it short.",
+					"Give a casual compliment for the following github account base on their bio, name, followers, following, readme, and repo and not using any harsh word and keep it short.",
 			});
 
-			let prompt = `Praise ${username} for their github account. You can mention their name, bio, followers, following, repos, and readme. Keep it short.`;
+			let prompt = `Praise ${username} for their github account. mention their name, bio, followers, following, repos, and readme. Keep it short.`;
 
 			switch (lang) {
 				case "en":
