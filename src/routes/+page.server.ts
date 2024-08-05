@@ -10,9 +10,7 @@ export const actions = {
 	default: async ({ request }) => {
 		const formData = await request.formData();
 
-		const username = formData.get("username") as string;
-		const lang = formData.get("lang") as string;
-
+		const { username, lang } = Object.fromEntries(formData.entries())
 		if (!username || !lang) {
 			return {
 				success: false,
@@ -40,14 +38,10 @@ export const actions = {
 					break;
 			}
 
-			// const userDetails = await getGithubUserDetails(username);
-			// const userRepos = await getGithubUserRepos(username);
-			// const userReadme = await getGithubUserReadme(username);
-
 			const [userDetails, userRepos, userReadme] = await Promise.all([
-				getGithubUserDetails(username),
-				getGithubUserRepos(username),
-				getGithubUserReadme(username),
+				getGithubUserDetails(username.toString()),
+				getGithubUserRepos(username.toString()),
+				getGithubUserReadme(username.toString()),
 			]);
 
 			const data = {
