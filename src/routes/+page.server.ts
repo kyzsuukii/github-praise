@@ -40,9 +40,15 @@ export const actions = {
 					break;
 			}
 
-			const userDetails = await getGithubUserDetails(username);
-			const userRepos = await getGithubUserRepos(username);
-			const userReadme = await getGithubUserReadme(username);
+			// const userDetails = await getGithubUserDetails(username);
+			// const userRepos = await getGithubUserRepos(username);
+			// const userReadme = await getGithubUserReadme(username);
+
+			const [userDetails, userRepos, userReadme] = await Promise.all([
+				getGithubUserDetails(username),
+				getGithubUserRepos(username),
+				getGithubUserReadme(username),
+			]);
 
 			const data = {
 				...userDetails,
